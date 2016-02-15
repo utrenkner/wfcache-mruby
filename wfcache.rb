@@ -13,7 +13,9 @@
 # (https://github.com/maximejobin/rocket-nginx)
 #
 # Author: Uwe Trenkner
-# URL: https://github.com/utrenkner
+# URL: https://github.com/utrenkner/wfcache-mruby
+#
+# License: BSD (2-Clause)
 #
 # Version 0.1
 #
