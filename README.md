@@ -6,6 +6,7 @@ and also on Wordfence's .htaccess for the Falcon Cache (https://github.com/wp-pl
 
 The X-Wfcache-Hit headers were inspired by Maxime Jobin's Rocket-Nginx (https://github.com/maximejobin/rocket-nginx)
 
+#Usage
 To use this wfache-mruby as an mruby-handler in h2o, add something like this to your path in h2o.conf
 ```
 paths:
