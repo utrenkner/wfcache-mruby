@@ -12,8 +12,8 @@ To use this wfache-mruby as an mruby-handler in h2o, add something like this to 
 paths:
   "/":
     reproxy: ON
-    mruby.handler-file: /usr/local/www/data/mgj/tmp/wfcache.rb
-    file.dir: "/usr/local/www/data/mgj/wordpress"   # serve static files if found
+    mruby.handler-file: /path/to/wfcache.rb
+    file.dir: "/path/to/wordpress-dir"   # serve static files if found
     redirect:           # if not found, internally redirect to /index.php/<path>
       url: /index.php/
       internal: YES 
