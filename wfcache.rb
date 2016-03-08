@@ -9,7 +9,7 @@
 # and also on Wordfence's .htaccess for the Falcon Cache
 # (https://github.com/wp-plugins/wordfence/blob/master/lib/wfCache.php)
 #
-# The X-Wfcache-Hit headers were inspired by Maxime Jobin's Rocket-Nginx 
+# The wfcache-hit headers were inspired by Maxime Jobin's Rocket-Nginx 
 # (https://github.com/maximejobin/rocket-nginx)
 #
 # Author: Uwe Trenkner
@@ -17,7 +17,7 @@
 #
 # License: BSD (2-Clause)
 #
-# Version 0.1
+# Version 0.2
 #
 ###################################################################################################
 
@@ -38,12 +38,17 @@ lambda do |env|
 	
 	# Which files are considered "static"
 	static_suffices = "css|js|svg|png|jpe?g|gif|ico|eot|otf|woff2?|ttf" 
+
+    # For security: block addresses containing these strings
+    # Default: block WP's main config file, 
+    # and dot-files/directories (except .well-known used by letsencrypt)
+    blockable_addresses = "wp\-config\.php|\/[\.](?!well\-known)(?=[a-zA-Z0-9_]+)"
 	#### END CONFIGRUATION ####
 
-	# Set max-age headers for statis assets
+	# Set max-age headers for static assets
 	headers = {}
 	if /\.(#{static_suffices})$/i.match(env["PATH_INFO"]) and #{static_max_age} > 0
-		headers["cache-control"] = "max-age=31536000"
+		headers["cache-control"] = "max-age=#{static_max_age}"
 	end
 	
 	# Do not apply caching code on cached files themeselves
@@ -110,6 +115,9 @@ lambda do |env|
 		end
 		wfcache_hit_message = "HIT cached file #{$2}"
 	end    
-	headers["X-Wfcache-Hit"] = "#{wfcache_hit_message}"
-	return [399, headers, []]
+	headers["wfcache-hit"] = "#{wfcache_hit_message}"
+        if /.*(#{blockable_addresses}).*/ !~ env["PATH_INFO"]
+		return [399, headers, []]
+	end
+	[403, {'content-type' => 'text/plain'}, ["access forbidden\n"]]
 end
