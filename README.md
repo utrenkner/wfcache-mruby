@@ -1,4 +1,6 @@
-# wfcache-mruby
+# wfcache-mruby [DEPRECATED]
+[UPDATE 13 DECEMBER 2016: As announced back in October, Wordfence has dropped the Falcon Cache as of version 6.2.8. For WordPress caching, we have switched to WP Super Cache, for which a fork of wfcache-mruby is made available under https://github.com/utrenkner/wpsupercache-mruby. wfcache-mruby is therefore deprecated.]
+
 wfcache-mruby allows using the Wordfence Falcon Cache with the h2o web server using mruby.
 
 wfcache-mruby is based on the nginx configuration for the Falcon Cache (https://www.wordfence.com/txt/nginxConf.txt)
